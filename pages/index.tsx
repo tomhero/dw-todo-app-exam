@@ -1,22 +1,11 @@
-import React from "react";
-
-import { Header, Main, Cards, Footer } from "@components/scss";
+import React from 'react';
 
 const Home: React.FC = () => {
-    return (
-        <div
-            style={{
-                display: "flex",
-                flexDirection: "column",
-                minHeight: "100vh",
-            }}
-        >
-            <Header />
-            <Main />
-            <Cards />
-            <Footer />
-        </div>
-    );
+  return (
+    <>
+      <h1 style={{ textAlign: 'center', marginTop: '21px' }}>Data Wow Todo List</h1>
+    </>
+  );
 };
 
 export default Home;

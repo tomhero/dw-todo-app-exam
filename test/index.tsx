@@ -1,12 +1,8 @@
-import React, { ReactElement } from "react";
-import {
-    render as baseRender,
-    RenderOptions,
-    RenderResult,
-} from "@testing-library/react";
+import React, { ReactElement } from 'react';
+import { render as baseRender, RenderOptions, RenderResult } from '@testing-library/react';
 
-import { Provider } from "react-redux";
-import store from "@redux/store";
+import { Provider } from 'react-redux';
+import store from '@redux/store';
 
 /**
  * Custom renderer example with @testing-library/react
@@ -16,19 +12,19 @@ import store from "@redux/store";
  * please visit https://testing-library.com/docs/react-testing-library/setup
  */
 
-export const AllTheProviders = ({ children }) => {
-    return (
-        <>
-            <Provider store={store}>{children}</Provider>
-        </>
-    );
+export const AllTheProviders: React.FC = ({ children }) => {
+  return (
+    <>
+      <Provider store={store}>{children}</Provider>
+    </>
+  );
 };
 
-const render = (ui: ReactElement, options?: Omit<RenderOptions, "queries">) =>
-    baseRender(ui, { wrapper: AllTheProviders, ...options }) as RenderResult;
+const render = (ui: ReactElement, options?: Omit<RenderOptions, 'queries'>) =>
+  baseRender(ui, { wrapper: AllTheProviders, ...options }) as RenderResult;
 
 // re-export everything
-export * from "@testing-library/react";
+export * from '@testing-library/react';
 
 // override render method
 export { render };

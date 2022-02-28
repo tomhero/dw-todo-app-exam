@@ -1,12 +1,12 @@
-import React from "react";
-import styles from "./index.module.scss";
+import React from 'react';
+import styles from './index.module.scss';
 
-import { Logo } from "@components/scss";
+import { Logo } from '@components/scss';
 
 export const Header: React.FC = () => {
-    return (
-        <div className={styles.header} data-testid="container">
-            <Logo />
-        </div>
-    );
+  return (
+    <div className={styles.header} data-testid="container">
+      <Logo />
+    </div>
+  );
 };
