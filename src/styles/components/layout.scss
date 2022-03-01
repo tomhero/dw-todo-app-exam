@@ -1,4 +1,13 @@
 .dw-layout {
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  justify-content: center;
+  background-color: $color-background-dark;
+  min-height: 100vh;
+
+  .dw-layout__container {
     position: relative;
     display: block;
     margin-top: 42px;
@@ -6,7 +15,8 @@
     width: 720px;
     min-height:  620px;
     height: max-content;
-    background: #F5F5F5;
+    background: $color-background-bright;
     border-radius: 20px;
     overflow-x: hidden;
+  }
 }

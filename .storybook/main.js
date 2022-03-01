@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = {
   stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
@@ -8,18 +10,10 @@ module.exports = {
   ],
   webpackFinal: async (config) => {
     config.module.rules.push({
-      // this is for both less and scss
+      // this is for scss
       test: /.*\.(?:sc|c)ss$/,
-      use: [
-        'style-loader',
-        {
-          loader: 'css-loader',
-          options: {
-            modules: true,
-          },
-        },
-        'sass-loader',
-      ],
+      loaders: ['style-loader', 'css-loader', 'sass-loader'],
+      include: path.resolve(__dirname, '../src/styles/global.scss'),
     });
 
     return config;
