@@ -30,8 +30,8 @@ const mockOptions: InputOptionItem[] = [
     value: 'undone',
   },
 ];
-export const BankSelectInput = Template.bind({});
-BankSelectInput.args = {
+export const Example = Template.bind({});
+Example.args = {
   options: mockOptions,
   selectedValue: 'all',
 };

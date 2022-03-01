@@ -8,6 +8,7 @@ module.exports = {
     '@storybook/addon-controls',
     '@storybook/addon-knobs',
   ],
+  staticDirs: ['../public'],
   webpackFinal: async (config) => {
     config.module.rules.push({
       // this is for scss
@@ -15,7 +16,7 @@ module.exports = {
       loaders: ['style-loader', 'css-loader', 'sass-loader'],
       include: path.resolve(__dirname, '../src/styles/global.scss'),
     });
-
+    config.resolve.roots = [path.resolve(__dirname, "../public")];
     return config;
   },
 };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 export type InputOptionItem = {
   label: string;
@@ -10,17 +10,42 @@ export type InputSelectProps = {
   className?: string;
   options: InputOptionItem[];
   selectedValue?: string;
-  onSelect?: (value: string) => void;
+  onSelect: (value: string) => void;
 };
 
-const InputSelect = (props: InputSelectProps) => {
+const InputSelect = ({ id, className, options, onSelect, selectedValue }: InputSelectProps) => {
+  const [isOpenCaret, setIsOpenCaret] = useState(false);
+
+  const selectHandler = (value: string) => {
+    onSelect(value);
+    setIsOpenCaret(false);
+  };
+
   return (
-    <div className="dw-select-input">
-      <select className="dw-select-input__select">
-        <option value="Option 1">First Option</option>
-        <option value="Option 2">2nd Option</option>
-        <option value="Option 3">Option Number 3</option>
-      </select>
+    <div id={id} className={`dw-select-input ${className}`}>
+      <input
+        type="text"
+        className="dw-select-input__select"
+        placeholder={selectedValue}
+        readOnly
+        onClick={() => setIsOpenCaret(!isOpenCaret)}
+      />
+      <img className="dw-select-input__icon" src="/icons/chev-down.svg" alt="chevron icon" />
+      <div
+        className={`dw-select-input__options ${
+          !isOpenCaret ? 'dw-select-input__options--hide' : ''
+        }`}
+      >
+        {options.map((option, index) => (
+          <div
+            key={`${index}-${option.value}`}
+            className="dw-select-input__options__item"
+            onClick={() => selectHandler(option.value)}
+          >
+            <span>{option.label}</span>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
