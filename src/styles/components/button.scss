@@ -60,3 +60,27 @@
     }
   }
 }
+
+.dw-button {
+  padding: 10px 17px;
+  border: none;
+  outline: none;
+  background: $color-purple;
+  border-radius: 999px;
+  text-decoration: none;
+  color: $color-white;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 16px;
+  text-transform: none;
+  position: relative;
+  overflow: hidden;
+  transition: background-color 0.2s linear;
+  cursor: pointer;
+
+  &:focus,
+  &:hover {
+    background: darken($color-purple, 12%);
+  }
+}
