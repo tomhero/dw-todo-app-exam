@@ -29,6 +29,11 @@ const InputSelect = ({ id, className, options, onSelect, selectedValue }: InputS
         placeholder={selectedValue}
         readOnly
         onClick={() => setIsOpenCaret(!isOpenCaret)}
+        onBlur={() => {
+          setTimeout(() => {
+            setIsOpenCaret(false);
+          }, 100);
+        }}
       />
       <img className="dw-select-input__icon" src="/icons/chev-down.svg" alt="chevron icon" />
       <div
