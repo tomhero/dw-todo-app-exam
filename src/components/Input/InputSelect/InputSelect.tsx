@@ -32,7 +32,7 @@ const InputSelect = ({ id, className, options, onSelect, selectedValue }: InputS
         onBlur={() => {
           setTimeout(() => {
             setIsOpenCaret(false);
-          }, 100);
+          }, 150);
         }}
       />
       <img className="dw-select-input__icon" src="/icons/chev-down.svg" alt="chevron icon" />
