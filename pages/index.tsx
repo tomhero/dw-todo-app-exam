@@ -1,9 +1,11 @@
-import { InputSelect } from '@components/Input';
 import React from 'react';
+
+import { InputSelect } from '@components/Input';
+import { Layout } from '@components/Layout';
 
 const Home: React.FC = () => {
   return (
-    <>
+    <Layout withContainer>
       <h1 style={{ textAlign: 'center', marginTop: '21px' }}>Data Wow Todo List</h1>
       <h2 style={{ textAlign: 'center', marginTop: '21px' }}>งานที่ต้องทำใน วันนี้</h2>
       <InputSelect
@@ -21,8 +23,10 @@ const Home: React.FC = () => {
             value: 'undone',
           },
         ]}
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        onSelect={() => {}}
       />
-    </>
+    </Layout>
   );
 };
 
