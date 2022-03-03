@@ -1,0 +1,18 @@
+.dw-progress-bar {
+  appearance: none;
+  display: block;
+  width: 100%;
+  height: 8px;
+  border: 0;
+
+  &::-webkit-progress-bar {
+    background: $color-grayscale-500;
+    border-radius: 999px;
+  }
+
+  &::-webkit-progress-value {
+    background: $color-white;
+    border-radius: 999px;
+    transition: width 0.75s ease-out;
+  }
+}
