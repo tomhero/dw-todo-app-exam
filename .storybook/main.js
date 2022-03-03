@@ -16,6 +16,28 @@ module.exports = {
       loaders: ['style-loader', 'css-loader', 'sass-loader'],
       include: path.resolve(__dirname, '../src/styles/global.scss'),
     });
+
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      "@components/*": path.resolve(__dirname, "../src/components/*"),
+      "@components": path.resolve(__dirname, "../src/components/"),
+      "@styles/*": path.resolve(__dirname, "../src/styles/*"),
+      "@styles": path.resolve(__dirname, "../src/styles/"),
+      "@public/*": path.resolve(__dirname, "../src/public/*"),
+      "@public": path.resolve(__dirname, "../src/public/"),
+      "@services": path.resolve(__dirname, "../src/services/"),
+      "@contexts": path.resolve(__dirname, "../src/contexts/"),
+      "@hooks": path.resolve(__dirname, "../src/hooks/"),
+      "@models": path.resolve(__dirname, "../src/models/"),
+      "@utils": path.resolve(__dirname, "../src/utils/"),
+      "@redux/*": path.resolve(__dirname, "../src/redux/*"),
+      "@redux": path.resolve(__dirname, "../src/redux/"),
+      "@test/*": path.resolve(__dirname, "../src/test/*"),
+      "@test": path.resolve(__dirname, "../src/test/"),
+    };
+
+    config.resolve.extensions.push('.ts', '.tsx');
+
     config.resolve.roots = [path.resolve(__dirname, "../public")];
     return config;
   },
