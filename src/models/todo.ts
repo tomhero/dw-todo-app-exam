@@ -8,3 +8,5 @@ export interface ITodoItem {
   text: string;
   status: TODO_STATUS;
 }
+
+export type TodoAction = 'edit' | 'delete';

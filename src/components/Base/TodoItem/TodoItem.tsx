@@ -1,15 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { ActionButton, ActionItem } from '@components/Button';
 import { InputCheckbox, InputText } from '@components/Input';
 
-import { ITodoItem } from '@models/todo';
+import { ITodoItem, TodoAction, TODO_STATUS } from '@models/todo';
 
 export type TodoItemProps = {
   id?: string;
   className?: string;
   todoItem: ITodoItem;
   mode?: 'read' | 'edit';
+  onCheckboxClick: (isDone: boolean) => void;
+  onTextChange: (textValue: string) => void;
+  onSelectAction: (actionName: TodoAction) => void;
 };
 
 const todoActions: ActionItem[] = [
@@ -24,9 +27,15 @@ const todoActions: ActionItem[] = [
   },
 ];
 
-const TodoItem = ({ id, className, todoItem, mode = 'read' }: TodoItemProps) => {
-  const [setTodoText, setSetTodoText] = useState(todoItem.text);
-
+const TodoItem = ({
+  id,
+  className,
+  todoItem,
+  mode = 'read',
+  onCheckboxClick,
+  onTextChange,
+  onSelectAction,
+}: TodoItemProps) => {
   const inputTextClassNames = ['dw-todo-item__text'];
   if (mode === 'read') {
     inputTextClassNames.push('dw-todo-item__text--read');
@@ -34,28 +43,25 @@ const TodoItem = ({ id, className, todoItem, mode = 'read' }: TodoItemProps) => 
     inputTextClassNames.push('dw-todo-item__text--edit');
   }
 
+  if (todoItem.status === TODO_STATUS.DONE) {
+    inputTextClassNames.push('dw-todo-item__text--completed');
+  }
+
   return (
-    <div className={`dw-todo-item ${className ? className : ''}`}>
+    <div id={id} className={`dw-todo-item ${className ? className : ''}`}>
       <InputText
         className={inputTextClassNames.join(' ')}
-        value={setTodoText}
-        onChange={(v) => setSetTodoText(v.target.value)}
+        value={todoItem.text}
+        onChange={(ev) => onTextChange(ev.target.value)}
         readOnly={mode === 'read'}
       />
       {mode === 'read' && (
         <>
-          <InputCheckbox
-            className="dw-todo-item__checkbox"
-            onChange={(v) => {
-              console.log(v);
-            }}
-          />
+          <InputCheckbox className="dw-todo-item__checkbox" onChange={onCheckboxClick} />
           <ActionButton
             className="dw-todo-item__action-button"
             actions={todoActions}
-            onClickAction={(v) => {
-              console.log(v);
-            }}
+            onClickAction={(act) => onSelectAction(act as TodoAction)}
           />
         </>
       )}
