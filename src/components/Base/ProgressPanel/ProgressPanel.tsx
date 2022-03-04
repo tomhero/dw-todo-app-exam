@@ -25,14 +25,11 @@ const ProgressPanel = ({
 
   const safePercentage = useMemo(getSafePercentage, [totalCount, completeCount]);
 
-  // TODO : Finalise UI
   return (
     <section id={id} className={`dw-progress-panel ${className ? className : ''}`}>
-      <h1>Progress</h1>
-      <br />
+      <h1 className="dw-progress-panel__title dw-text-h1">Progress</h1>
       <ProgressBar percentage={safePercentage} />
-      <br />
-      <p>12 completed</p>
+      <p className="dw-progress-panel__description dw-text-p">12 completed</p>
     </section>
   );
 };

@@ -1,4 +1,13 @@
+/**
+* Share Component
+**/
 @import "./layout.scss";
 @import "./input.scss";
 @import './button.scss';
 @import "./progress-bar.scss";
+
+/**
+* Base Component
+**/
+@import "./progress-panel.scss";
+@import "./todo-item.scss";
