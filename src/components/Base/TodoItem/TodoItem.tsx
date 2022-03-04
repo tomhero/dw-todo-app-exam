@@ -50,6 +50,7 @@ const TodoItem = ({
   return (
     <div id={id} className={`dw-todo-item ${className ? className : ''}`}>
       <InputText
+        id={`${id}-text`}
         className={inputTextClassNames.join(' ')}
         value={todoItem.text}
         onChange={(ev) => onTextChange(ev.target.value)}
@@ -57,8 +58,13 @@ const TodoItem = ({
       />
       {mode === 'read' && (
         <>
-          <InputCheckbox className="dw-todo-item__checkbox" onChange={onCheckboxClick} />
+          <InputCheckbox
+            id={`${id}-checkbox`}
+            className="dw-todo-item__checkbox"
+            onChange={onCheckboxClick}
+          />
           <ActionButton
+            id={`${id}-button`}
             className="dw-todo-item__action-button"
             actions={todoActions}
             onClickAction={(act) => onSelectAction(act as TodoAction)}

@@ -1,13 +1,35 @@
 import React from 'react';
 
-import { InputSelect } from '@components/Input';
+import { ITodoItem, TODO_STATUS } from '@models/todo';
 import { Layout } from '@components/Layout';
+
+import { InputSelect } from '@components/Input';
+import { ProgressPanel } from '@components/Base/ProgressPanel';
+import { TodoItem } from '@components/Base/TodoItem';
+
+const mockTodoList: ITodoItem[] = [
+  {
+    id: '1',
+    text: 'delectus aut autem',
+    status: TODO_STATUS.DONE,
+  },
+  {
+    id: '2',
+    text: 'quis ut nam facilis et officia qui',
+    status: TODO_STATUS.UNDONE,
+  },
+  {
+    id: '3',
+    text: 'fugiat veniam minus',
+    status: TODO_STATUS.UNDONE,
+  },
+];
 
 const Home: React.FC = () => {
   return (
     <Layout withContainer>
       <h1 style={{ textAlign: 'center', marginTop: '21px' }}>Data Wow Todo List</h1>
-      <h2 style={{ textAlign: 'center', marginTop: '21px' }}>งานที่ต้องทำใน วันนี้</h2>
+      <ProgressPanel totalCount={mockTodoList.length} completeCount={1} />
       <InputSelect
         options={[
           {
@@ -23,8 +45,27 @@ const Home: React.FC = () => {
             value: 'undone',
           },
         ]}
+        selectedValue="all"
         // eslint-disable-next-line @typescript-eslint/no-empty-function
         onSelect={() => {}}
+      />
+      <br />
+      {mockTodoList.map((item) => (
+        <TodoItem
+          id={item.id + ''}
+          key={item.id}
+          todoItem={item}
+          onCheckboxClick={(v) => console.log(v)}
+          onTextChange={(v) => console.log(v)}
+          onSelectAction={(v) => console.log(v)}
+        />
+      ))}
+      <TodoItem
+        todoItem={{ id: '4', status: TODO_STATUS.UNDONE, text: '' }}
+        onCheckboxClick={(v) => console.log(v)}
+        onTextChange={(v) => console.log(v)}
+        onSelectAction={(v) => console.log(v)}
+        mode="edit"
       />
     </Layout>
   );
