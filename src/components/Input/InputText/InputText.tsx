@@ -6,10 +6,17 @@ export type InputTextProps = {
   value?: string;
   placeholder?: string;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
-  readOnly: boolean;
+  readOnly?: boolean;
 };
 
-const InputText = ({ id, className, value, placeholder, onChange, readOnly }: InputTextProps) => {
+const InputText = ({
+  id,
+  className,
+  value,
+  placeholder,
+  onChange,
+  readOnly = false,
+}: InputTextProps) => {
   return (
     <input
       id={id}

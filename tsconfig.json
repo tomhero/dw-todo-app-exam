@@ -48,6 +48,12 @@
       ],
       "@test": [
         "test"
+      ],
+      "@models/*": [
+        "src/models/*"
+      ],
+      "@models": [
+        "src/models"
       ]
     },
     "incremental": true

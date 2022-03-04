@@ -1,0 +1,25 @@
+.dw-todo-item {
+  display: flex;
+  position: relative;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+
+  .dw-todo-item__checkbox {
+    display: inline-flex;
+    position: absolute;
+    left: 20px;
+  }
+
+  .dw-todo-item__text {
+    padding-left: 58px;
+    padding-right: 64px;
+    width: 100%;
+  }
+
+  .dw-todo-item__action-button {
+    position: absolute;
+    right: 20px;
+  }
+}

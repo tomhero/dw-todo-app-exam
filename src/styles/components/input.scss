@@ -75,53 +75,55 @@
 * Checkbox
 **/
 .dw-checkbox {
-  height: 0;
-  width: 0;
+  .dw-checkbox__input-box {
+    height: 0;
+    width: 0;
 
-  &:checked + .dw-checkbox__shadow-box > span {
-    border: 4px solid $color-purple;
-    background-color: $color-purple;
-    animation: shrink-bounce 0.2s cubic-bezier(.4,.0,.23,1);
-    width: 100%;
-    height: 100%;
-    padding: 0;
-    margin: 0;
+    &:checked + .dw-checkbox__shadow-box > span {
+      border: 4px solid $color-purple;
+      background-color: $color-purple;
+      animation: shrink-bounce 0.2s cubic-bezier(.4,.0,.23,1);
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      margin: 0;
 
-    &:before {
-      content: "";
-      position: absolute;
-      top: 10px;
-      left: 6px;
-      border-color: $color-white;
-      border-right: 2px solid transparent;
-      border-bottom: 2px solid transparent;
-      transform: rotate(45deg);
-      transform-origin: 0% 100%;
-      animation: checkbox-check 0.12s 0.2s cubic-bezier(.4,.0,.23,1) forwards;
+      &:before {
+        content: "";
+        position: absolute;
+        top: 10px;
+        left: 6px;
+        border-color: $color-white;
+        border-right: 2px solid transparent;
+        border-bottom: 2px solid transparent;
+        transform: rotate(45deg);
+        transform-origin: 0% 100%;
+        animation: checkbox-check 0.12s 0.2s cubic-bezier(.4,.0,.23,1) forwards;
+      }
     }
   }
-}
 
-.dw-checkbox__shadow-box {
-  position: relative;
-  display: flex;
-  align-items: center;
-  transition: color 0.2s cubic-bezier(.4,.0,.23,1);
-  width: 22px;
-  height: 22px;
-  box-sizing: border-box;
-
-  > span {
+  .dw-checkbox__shadow-box {
+    position: relative;
     display: flex;
-    justify-content: center;
     align-items: center;
-    width: 100%;
-    height: 100%;
-    background: transparent;
-    border: 2px solid $color-purple;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: all 0.2s cubic-bezier(.4,.0,.23,1);
+    transition: color 0.2s cubic-bezier(.4,.0,.23,1);
+    width: 22px;
+    height: 22px;
+    box-sizing: border-box;
+
+    > span {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      border: 2px solid $color-purple;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(.4,.0,.23,1);
+    }
   }
 }
 
@@ -135,7 +137,7 @@
   caret-color: $color-purple;
   min-width: 117px;
   height: 46px;
-  text-indent: 20px;
+  text-overflow: ellipsis;
   font-style: normal;
   font-weight: normal;
   font-size: 16px;

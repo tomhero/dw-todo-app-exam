@@ -8,11 +8,12 @@ export type ActionItem = {
 
 export type ActionButtonProps = {
   id?: string;
+  className?: string;
   actions: ActionItem[];
   onClickAction: (action: string) => void;
 };
 
-const ActionButton = ({ id, actions, onClickAction }: ActionButtonProps) => {
+const ActionButton = ({ id, className, actions, onClickAction }: ActionButtonProps) => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
 
   const selectHandler = (action: string) => {
@@ -21,7 +22,7 @@ const ActionButton = ({ id, actions, onClickAction }: ActionButtonProps) => {
   };
 
   return (
-    <div id={id} className="dw-action-button">
+    <div id={id} className={`dw-action-button ${className ? className : ''}`}>
       <img
         className="dw-action-button__dots"
         src="/icons/three-dots.svg"
