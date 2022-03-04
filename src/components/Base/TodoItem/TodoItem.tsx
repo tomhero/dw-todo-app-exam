@@ -9,7 +9,7 @@ export type TodoItemProps = {
   id?: string;
   className?: string;
   todoItem: ITodoItem;
-  mode: 'read' | 'edit';
+  mode?: 'read' | 'edit';
 };
 
 const todoActions: ActionItem[] = [
@@ -24,29 +24,41 @@ const todoActions: ActionItem[] = [
   },
 ];
 
-const TodoItem = ({ id, className, todoItem }: TodoItemProps) => {
+const TodoItem = ({ id, className, todoItem, mode = 'read' }: TodoItemProps) => {
   const [setTodoText, setSetTodoText] = useState(todoItem.text);
+
+  const inputTextClassNames = ['dw-todo-item__text'];
+  if (mode === 'read') {
+    inputTextClassNames.push('dw-todo-item__text--read');
+  } else {
+    inputTextClassNames.push('dw-todo-item__text--edit');
+  }
 
   return (
     <div className={`dw-todo-item ${className ? className : ''}`}>
       <InputText
-        className="dw-todo-item__text"
+        className={inputTextClassNames.join(' ')}
         value={setTodoText}
         onChange={(v) => setSetTodoText(v.target.value)}
+        readOnly={mode === 'read'}
       />
-      <InputCheckbox
-        className="dw-todo-item__checkbox"
-        onChange={(v) => {
-          console.log(v);
-        }}
-      />
-      <ActionButton
-        className="dw-todo-item__action-button"
-        actions={todoActions}
-        onClickAction={(v) => {
-          console.log(v);
-        }}
-      />
+      {mode === 'read' && (
+        <>
+          <InputCheckbox
+            className="dw-todo-item__checkbox"
+            onChange={(v) => {
+              console.log(v);
+            }}
+          />
+          <ActionButton
+            className="dw-todo-item__action-button"
+            actions={todoActions}
+            onClickAction={(v) => {
+              console.log(v);
+            }}
+          />
+        </>
+      )}
     </div>
   );
 };

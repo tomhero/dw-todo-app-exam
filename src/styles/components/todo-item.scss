@@ -16,6 +16,12 @@
     padding-left: 58px;
     padding-right: 64px;
     width: 100%;
+    transition: padding 0.2s ease-out;
+
+    &.dw-todo-item__text--edit {
+      padding-left: 20px !important;
+      padding-right: 20px !important;
+    }
   }
 
   .dw-todo-item__action-button {
