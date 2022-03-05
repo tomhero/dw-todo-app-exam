@@ -10,6 +10,7 @@ export type TodoItemProps = {
   className?: string;
   todoItem: ITodoItem;
   mode?: 'read' | 'edit';
+  isNew?: boolean;
   onCheckboxClick: (isDone: boolean) => void;
   onTextChange: (textValue: string) => void;
   onSelectAction: (actionName: TodoAction) => void;
@@ -33,6 +34,7 @@ const TodoItem = ({
   className,
   todoItem,
   mode = 'read',
+  isNew = false,
   onCheckboxClick,
   onTextChange,
   onSelectAction,
@@ -49,35 +51,56 @@ const TodoItem = ({
     inputTextClassNames.push('dw-todo-item__text--completed');
   }
 
+  const renderEditPreset = () => {
+    return (
+      <>
+        <InputCheckbox
+          id={`${id}-checkbox`}
+          className="dw-todo-item__checkbox"
+          onChange={onCheckboxClick}
+        />
+        <ActionButton
+          id={`${id}-action-button`}
+          className="dw-todo-item__action-button"
+          actions={todoActions}
+          onClickAction={(act) => onSelectAction(act as TodoAction)}
+        />
+      </>
+    );
+  };
+
+  const renderAddPreset = () => {
+    return (
+      isNew &&
+      todoItem.text !== '' && (
+        <Button
+          id={`${id}-save-button`}
+          className="dw-todo-item__save-button"
+          onClick={onSave}
+          type="submit"
+        >
+          Save
+        </Button>
+      )
+    );
+  };
+
   return (
-    <div id={id} className={`dw-todo-item ${className ? className : ''}`}>
+    <form
+      id={id}
+      className={`dw-todo-item ${className ? className : ''}`}
+      onSubmit={(e) => e.preventDefault()}
+    >
       <InputText
         id={`${id}-text`}
         className={inputTextClassNames.join(' ')}
         value={todoItem.text}
         onChange={(ev) => onTextChange(ev.target.value)}
         readOnly={mode === 'read'}
+        placeholder={`${isNew ? 'Add' : 'Edit'} your todo...`}
       />
-      {mode === 'read' ? (
-        <>
-          <InputCheckbox
-            id={`${id}-checkbox`}
-            className="dw-todo-item__checkbox"
-            onChange={onCheckboxClick}
-          />
-          <ActionButton
-            id={`${id}-button`}
-            className="dw-todo-item__action-button"
-            actions={todoActions}
-            onClickAction={(act) => onSelectAction(act as TodoAction)}
-          />
-        </>
-      ) : (
-        <Button id={`${id}-save-button`} className="dw-todo-item__save-button" onClick={onSave}>
-          Save
-        </Button>
-      )}
-    </div>
+      {mode === 'read' ? renderEditPreset() : renderAddPreset()}
+    </form>
   );
 };
 

@@ -1,0 +1,31 @@
+.dw-home > .dw-layout__container {
+  display: flex;
+  flex-direction: column;
+  align-content: space-around;
+
+  section {
+    width: 518px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .dw-home__progress-panel {
+    margin-top: 61px;
+  }
+  .dw-home__todo-list-head {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    margin-top: 33px;
+  }
+  .dw-home__todo-list {
+    display: flex;
+    flex-direction: column;
+
+    .dw-home__todo-list__existing-todo,
+    .dw-home__todo-list__new-todo {
+      margin-top: 16px;
+    }
+  }
+}

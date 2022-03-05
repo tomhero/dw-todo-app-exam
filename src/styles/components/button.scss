@@ -51,6 +51,7 @@
     color: $color-black;
     opacity: 1;
     transition: all 0.25s ease-out;
+    z-index: $z-index-pop-up;
 
     &.dw-action-button__context-menu--hide {
       background-color: transparent;

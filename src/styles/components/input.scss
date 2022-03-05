@@ -46,6 +46,7 @@
     padding: 8px 0;
     opacity: 1;
     transition: all 0.25s ease-out;
+    z-index: $z-index-pop-up;
 
     &.dw-select-input__options--hide {
       color: $color-white;
