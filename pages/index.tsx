@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
 import { ITodoItem, TODO_STATUS } from '@models/todo';
-import { Layout } from '@components/Layout';
 
-import { InputSelect } from '@components/Input';
+import { Layout } from '@components/Layout';
+import { InputOptionItem, InputSelect } from '@components/Input';
 import { ProgressPanel } from '@components/Base/ProgressPanel';
 import { TodoItem } from '@components/Base/TodoItem';
 
@@ -31,8 +31,33 @@ const newTodoTemplate: ITodoItem = {
   text: '',
 };
 
+const filterOptions: InputOptionItem[] = [
+  {
+    label: 'All',
+    value: 'all',
+  },
+  {
+    label: 'Done',
+    value: 'done',
+  },
+  {
+    label: 'Undone',
+    value: 'undone',
+  },
+];
+
 const Home: React.FC = () => {
+  const [filter, setFilter] = useState('all');
   const [newTodo, setNewTodo] = useState(newTodoTemplate);
+
+  const getFilteredTodo = () => {
+    if (filter === 'done') {
+      return mockTodoList.filter((todo) => todo.status === TODO_STATUS.DONE);
+    } else if (filter === 'undone') {
+      return mockTodoList.filter((todo) => todo.status === TODO_STATUS.UNDONE);
+    }
+    return mockTodoList;
+  };
 
   return (
     <Layout className="dw-home" withContainer>
@@ -43,28 +68,10 @@ const Home: React.FC = () => {
       />
       <section className="dw-home__todo-list-head">
         <h2>Tasks</h2>
-        <InputSelect
-          options={[
-            {
-              label: 'All',
-              value: 'all',
-            },
-            {
-              label: 'Done',
-              value: 'done',
-            },
-            {
-              label: 'Undone',
-              value: 'undone',
-            },
-          ]}
-          selectedValue="all"
-          // eslint-disable-next-line @typescript-eslint/no-empty-function
-          onSelect={() => {}}
-        />
+        <InputSelect options={filterOptions} selectedValue={filter} onSelect={setFilter} />
       </section>
       <section className="dw-home__todo-list">
-        {mockTodoList.map((item) => (
+        {getFilteredTodo().map((item) => (
           <TodoItem
             key={item.id}
             id={item.id + ''}

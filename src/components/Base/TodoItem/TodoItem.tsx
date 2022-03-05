@@ -1,9 +1,9 @@
 import React from 'react';
 
+import { ITodoItem, TodoAction, TODO_STATUS } from '@models/todo';
+
 import { ActionButton, ActionItem, Button } from '@components/Button';
 import { InputCheckbox, InputText } from '@components/Input';
-
-import { ITodoItem, TodoAction, TODO_STATUS } from '@models/todo';
 
 export type TodoItemProps = {
   id?: string;
@@ -58,6 +58,7 @@ const TodoItem = ({
           id={`${id}-checkbox`}
           className="dw-todo-item__checkbox"
           onChange={onCheckboxClick}
+          defaultChecked={todoItem.status === TODO_STATUS.DONE}
         />
         <ActionButton
           id={`${id}-action-button`}
