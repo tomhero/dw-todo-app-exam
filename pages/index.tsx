@@ -58,6 +58,7 @@ const Home: React.FC = () => {
           onCheckboxClick={(v) => console.log(v)}
           onTextChange={(v) => console.log(v)}
           onSelectAction={(v) => console.log(v)}
+          onSave={() => console.log('save...')}
         />
       ))}
       <TodoItem
@@ -66,6 +67,7 @@ const Home: React.FC = () => {
         onTextChange={(v) => console.log(v)}
         onSelectAction={(v) => console.log(v)}
         mode="edit"
+        onSave={() => console.log('save...')}
       />
     </Layout>
   );

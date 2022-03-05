@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ActionButton, ActionItem } from '@components/Button';
+import { ActionButton, ActionItem, Button } from '@components/Button';
 import { InputCheckbox, InputText } from '@components/Input';
 
 import { ITodoItem, TodoAction, TODO_STATUS } from '@models/todo';
@@ -13,6 +13,7 @@ export type TodoItemProps = {
   onCheckboxClick: (isDone: boolean) => void;
   onTextChange: (textValue: string) => void;
   onSelectAction: (actionName: TodoAction) => void;
+  onSave?: () => void;
 };
 
 const todoActions: ActionItem[] = [
@@ -35,6 +36,7 @@ const TodoItem = ({
   onCheckboxClick,
   onTextChange,
   onSelectAction,
+  onSave,
 }: TodoItemProps) => {
   const inputTextClassNames = ['dw-todo-item__text'];
   if (mode === 'read') {
@@ -56,7 +58,7 @@ const TodoItem = ({
         onChange={(ev) => onTextChange(ev.target.value)}
         readOnly={mode === 'read'}
       />
-      {mode === 'read' && (
+      {mode === 'read' ? (
         <>
           <InputCheckbox
             id={`${id}-checkbox`}
@@ -70,6 +72,10 @@ const TodoItem = ({
             onClickAction={(act) => onSelectAction(act as TodoAction)}
           />
         </>
+      ) : (
+        <Button id={`${id}-save-button`} className="dw-todo-item__save-button" onClick={onSave}>
+          Save
+        </Button>
       )}
     </div>
   );
