@@ -9,6 +9,16 @@ button {
   outline: none;
 }
 
+button,
+textarea,
+input,
+select,
+option,
+a {
+ -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+ -webkit-tap-highlight-color: transparent;
+}
+
 * {
   margin: 0;
   padding: 0;

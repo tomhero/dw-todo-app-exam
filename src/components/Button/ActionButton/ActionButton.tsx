@@ -1,5 +1,4 @@
-import React, { useCallback, useState } from 'react';
-import { sleep } from 'src/utils/time';
+import React, { useState } from 'react';
 
 export type ActionItem = {
   label: string;

@@ -21,6 +21,10 @@
       width: 100%;
       transition: padding 0.2s ease-out;
 
+      @include media-below(md) {
+        padding-right: 54px;
+      }
+
       &.dw-todo-item__text--read.dw-todo-item__text--completed {
         color: #A9A9A9;
         text-decoration: line-through;
@@ -35,6 +39,10 @@
     .dw-todo-item__action-button {
       position: absolute;
       right: 20px;
+
+      @include media-below(md) {
+        right: 10px;
+      }
     }
 
     .dw-todo-item__save-button {

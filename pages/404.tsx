@@ -8,7 +8,7 @@ const NotFound: React.FC = () => {
       <h1 style={{ textAlign: 'center', marginTop: '24px' }}>Page Not Found</h1>
       <br />
       <br />
-      <img width="50%" height="50%" src="/images/undraw_page_not_found.svg" alt="not found" />
+      <img width="75%" height="75%" src="/images/undraw_page_not_found.svg" alt="not found" />
     </Layout>
   );
 };
