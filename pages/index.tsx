@@ -8,7 +8,7 @@ import { InputOptionItem, InputSelect } from '@components/Input';
 import { ProgressPanel } from '@components/Base/ProgressPanel';
 import { TodoItem } from '@components/Base/TodoItem';
 import { useAppDispatch, useAppSelector } from '@hooks/redux';
-import { createTodo, fetchTodoList, todoAction, updateTodo } from '@redux/slices/todo';
+import { createTodo, deleteTodo, fetchTodoList, todoAction, updateTodo } from '@redux/slices/todo';
 
 const getNewTodoTemplate = () => {
   return {
@@ -61,21 +61,13 @@ const Home: React.FC = () => {
     }
   };
 
-  const handleActionContextMenu = (action: string, index: number) => {
-    if (action === 'edit') setCurrentEditTodoIndex(index);
-    if (action === 'delete') {
-      setCurrentEditTodoIndex(undefined);
-      console.log('start delete...');
-    }
-  };
-
   const handleAddTodo = async (newTodo: ITodoItem) => {
     setCurrentEditTodoIndex(undefined);
     const resultAction = await dispatch(createTodo(newTodo));
     if (createTodo.fulfilled.match(resultAction)) {
       setNewTodo(getNewTodoTemplate());
       const todoListData = resultAction.payload;
-      console.info('[info] : Add todo list success', todoListData);
+      console.info('[info] : Add todo success', todoListData);
     } else {
       alert('Cannot add todo.');
     }
@@ -90,6 +82,24 @@ const Home: React.FC = () => {
       alert('Cannot edit todo item.');
     }
     setCurrentEditTodoIndex(undefined);
+  };
+
+  const handleDeleteTodo = async (id: string) => {
+    const resultAction = await dispatch(deleteTodo(id));
+    if (deleteTodo.fulfilled.match(resultAction)) {
+      console.info('[info] : Delete todo success');
+    } else {
+      alert('Cannot delete todo item.');
+    }
+    setCurrentEditTodoIndex(undefined);
+  };
+
+  const handleActionContextMenu = (action: string, index: number, id: string) => {
+    if (action === 'edit') setCurrentEditTodoIndex(index);
+    if (action === 'delete') {
+      setCurrentEditTodoIndex(undefined);
+      handleDeleteTodo(id);
+    }
   };
 
   useEffect(() => {
@@ -125,7 +135,7 @@ const Home: React.FC = () => {
               handleEditTodo({ ...item, status: isChecked ? TODO_STATUS.DONE : TODO_STATUS.UNDONE })
             }
             onSave={(saveItem) => handleEditTodo(saveItem)}
-            onSelectAction={(act) => handleActionContextMenu(act, index)}
+            onSelectAction={(act) => handleActionContextMenu(act, index, item.id)}
             mode={index === currentEditTodoIndex ? 'edit' : 'read'}
             isNew={false}
           />

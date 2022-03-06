@@ -54,8 +54,11 @@ const todoSlice = createSlice({
     });
     builder.addCase(deleteTodo.fulfilled, (state, { meta }) => {
       const deletedTodoIndex = state.todoList.findIndex((todo) => todo.id === meta.arg);
-      state.todoList = state.todoList.splice(deletedTodoIndex, 1);
+      state.todoList.splice(deletedTodoIndex, 1);
       state.todoCount--;
+      state.doneTodoCount = state.todoList.filter(
+        (todo) => todo.status === TODO_STATUS.DONE,
+      ).length;
     });
   },
 });
