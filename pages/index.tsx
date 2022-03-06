@@ -8,12 +8,14 @@ import { InputOptionItem, InputSelect } from '@components/Input';
 import { ProgressPanel } from '@components/Base/ProgressPanel';
 import { TodoItem } from '@components/Base/TodoItem';
 import { useAppDispatch, useAppSelector } from '@hooks/redux';
-import { fetchTodoList, todoAction, updateTodo } from '@redux/slices/todo';
+import { createTodo, fetchTodoList, todoAction, updateTodo } from '@redux/slices/todo';
 
-const newTodoTemplate: ITodoItem = {
-  id: uuidv4(),
-  status: TODO_STATUS.UNDONE,
-  text: '',
+const getNewTodoTemplate = () => {
+  return {
+    id: uuidv4(),
+    status: TODO_STATUS.UNDONE,
+    text: '',
+  } as ITodoItem;
 };
 
 const filterOptions: InputOptionItem[] = [
@@ -33,7 +35,7 @@ const filterOptions: InputOptionItem[] = [
 
 const Home: React.FC = () => {
   const [filter, setFilter] = useState('all');
-  const [newTodo, setNewTodo] = useState(newTodoTemplate);
+  const [newTodo, setNewTodo] = useState(getNewTodoTemplate());
   const [currentEditTodoIndex, setCurrentEditTodoIndex] = useState<number>();
 
   const todoState = useAppSelector((state) => state.todo);
@@ -52,7 +54,7 @@ const Home: React.FC = () => {
     const resultAction = await dispatch(fetchTodoList());
     if (fetchTodoList.fulfilled.match(resultAction)) {
       const todoListData = resultAction.payload;
-      console.info('[info] : load todo list success', todoListData);
+      console.info('[info] : Load todo list success', todoListData);
     } else {
       // NOTE : Handle erros
       alert('Cannot load todo list.');
@@ -62,7 +64,20 @@ const Home: React.FC = () => {
   const handleActionContextMenu = (action: string, index: number) => {
     if (action === 'edit') setCurrentEditTodoIndex(index);
     if (action === 'delete') {
+      setCurrentEditTodoIndex(undefined);
       console.log('start delete...');
+    }
+  };
+
+  const handleAddTodo = async (newTodo: ITodoItem) => {
+    setCurrentEditTodoIndex(undefined);
+    const resultAction = await dispatch(createTodo(newTodo));
+    if (createTodo.fulfilled.match(resultAction)) {
+      setNewTodo(getNewTodoTemplate());
+      const todoListData = resultAction.payload;
+      console.info('[info] : Add todo list success', todoListData);
+    } else {
+      alert('Cannot add todo.');
     }
   };
 
@@ -70,7 +85,7 @@ const Home: React.FC = () => {
     const resultAction = await dispatch(updateTodo(editItem));
     if (updateTodo.fulfilled.match(resultAction)) {
       const todoData = resultAction.payload;
-      console.info('[info] : edit todo success', todoData);
+      console.info('[info] : Edit todo success', todoData);
     } else {
       alert('Cannot edit todo item.');
     }
@@ -109,7 +124,7 @@ const Home: React.FC = () => {
             onCheckboxClick={(isChecked) =>
               handleEditTodo({ ...item, status: isChecked ? TODO_STATUS.DONE : TODO_STATUS.UNDONE })
             }
-            onSave={() => handleEditTodo(item)}
+            onSave={(saveItem) => handleEditTodo(saveItem)}
             onSelectAction={(act) => handleActionContextMenu(act, index)}
             mode={index === currentEditTodoIndex ? 'edit' : 'read'}
             isNew={false}
@@ -119,7 +134,7 @@ const Home: React.FC = () => {
           id="new-item"
           className="dw-home__todo-list__new-todo"
           todoItem={newTodo}
-          onSave={() => console.log('save...')}
+          onSave={(saveItem) => handleAddTodo(saveItem)}
           mode="edit"
           isNew
         />

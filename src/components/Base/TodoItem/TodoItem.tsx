@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { ITodoItem, TodoAction, TODO_STATUS } from '@models/todo';
 
@@ -13,7 +13,7 @@ export type TodoItemProps = {
   isNew?: boolean;
   onCheckboxClick?: (isDone: boolean) => void;
   onSelectAction?: (actionName: TodoAction) => void;
-  onSave?: () => void;
+  onSave?: (todo: ITodoItem) => void;
 };
 
 const todoActions: ActionItem[] = [
@@ -38,7 +38,7 @@ const TodoItem = ({
   onSelectAction,
   onSave,
 }: TodoItemProps) => {
-  const [todoText, setTodoText] = useState(todoItem.text);
+  const [todoText, setTodoText] = useState('');
 
   const inputTextClassNames = ['dw-todo-item__text'];
   if (mode === 'read') {
@@ -50,6 +50,12 @@ const TodoItem = ({
   if (todoItem.status === TODO_STATUS.DONE) {
     inputTextClassNames.push('dw-todo-item__text--completed');
   }
+
+  useEffect(() => {
+    if (todoItem) {
+      setTodoText(todoItem.text);
+    }
+  }, [todoItem]);
 
   const renderEditPreset = () => {
     return (
@@ -78,7 +84,10 @@ const TodoItem = ({
         <Button
           id={`${id}-save-button`}
           className="dw-todo-item__save-button"
-          onClick={onSave}
+          onClick={() => {
+            console.log('todoText', todoText);
+            if (onSave) onSave({ ...todoItem, text: todoText });
+          }}
           type="submit"
         >
           Save
