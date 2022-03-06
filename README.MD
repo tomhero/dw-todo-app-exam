@@ -31,6 +31,8 @@ $ yarn start
 
 ## Screenshot
 
+After start server please go to http://localhost:3000/
+
 ---
 ### Mobile
 <img src="./document/app-screentshot-mobile.jpg" width="40%">
@@ -42,9 +44,20 @@ $ yarn start
 ---
 ### Desktop
 <img src="./document/app-screentshot-desktop.png" width="100%">
----
 
-## Highlight Dependency ,Library, Framework
+
+## (Bonus) Storybook Component
+
+### Run storybook
+```bash
+$ yarn storybook
+```
+
+After start storybook server please go to http://localhost:6006/
+
+<img src="./document/app-storybook.png" width="100%">
+
+## Highlight Dependency, Library, Framework
 ### **SASS/SCSS**
 
 Sass is a stylesheet language that’s compiled to CSS. It allows you to use variables, nested rules, mixins, functions, and more, all with a fully CSS-compatible syntax.
