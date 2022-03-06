@@ -33,15 +33,11 @@ $ yarn start
 
 ---
 ### Mobile
-<img src="./document/app-screentshot-mobile.jpg" width="50%">
----
-
+<img src="./document/app-screentshot-mobile.jpg" width="40%">
 
 ---
 ### Tablet
 <img src="./document/app-screentshot-tablet.png" width="50%">
----
-
 
 ---
 ### Desktop
