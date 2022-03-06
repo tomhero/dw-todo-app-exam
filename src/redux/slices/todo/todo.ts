@@ -45,7 +45,7 @@ const todoSlice = createSlice({
       if (payload) {
         const updatedTodoIndex = state.todoList.findIndex((todo) => todo.id === meta.arg.id);
         if (updatedTodoIndex >= 0) {
-          state.todoList = state.todoList.splice(updatedTodoIndex, 1, meta.arg);
+          state.todoList.splice(updatedTodoIndex, 1, meta.arg);
           state.doneTodoCount = state.todoList.filter(
             (todo) => todo.status === TODO_STATUS.DONE,
           ).length;

@@ -68,12 +68,13 @@ const Home: React.FC = () => {
 
   const handleEditTodo = async (editItem: ITodoItem) => {
     const resultAction = await dispatch(updateTodo(editItem));
-    if (fetchTodoList.fulfilled.match(resultAction)) {
+    if (updateTodo.fulfilled.match(resultAction)) {
       const todoData = resultAction.payload;
       console.info('[info] : edit todo success', todoData);
     } else {
       alert('Cannot edit todo item.');
     }
+    setCurrentEditTodoIndex(undefined);
   };
 
   useEffect(() => {
@@ -89,19 +90,27 @@ const Home: React.FC = () => {
       />
       <section className="dw-home__todo-list-head">
         <h2 className="dw-text-h2">Tasks</h2>
-        <InputSelect options={filterOptions} selectedValue={filter} onSelect={setFilter} />
+        <InputSelect
+          options={filterOptions}
+          selectedValue={filter}
+          onSelect={(filter) => {
+            setCurrentEditTodoIndex(undefined);
+            setFilter(filter);
+          }}
+        />
       </section>
       <section className="dw-home__todo-list">
         {getFilteredTodo().map((item, index) => (
           <TodoItem
             key={item.id}
-            id={item.id + ''}
+            id={`todo-${index}`}
             className="dw-home__todo-list__existing-todo"
             todoItem={item}
-            onCheckboxClick={(v) => console.log(v)}
-            onTextChange={(v) => console.log(v)}
-            onSelectAction={(act) => handleActionContextMenu(act, index)}
+            onCheckboxClick={(isChecked) =>
+              handleEditTodo({ ...item, status: isChecked ? TODO_STATUS.DONE : TODO_STATUS.UNDONE })
+            }
             onSave={() => handleEditTodo(item)}
+            onSelectAction={(act) => handleActionContextMenu(act, index)}
             mode={index === currentEditTodoIndex ? 'edit' : 'read'}
             isNew={false}
           />
@@ -110,14 +119,6 @@ const Home: React.FC = () => {
           id="new-item"
           className="dw-home__todo-list__new-todo"
           todoItem={newTodo}
-          onCheckboxClick={(v) => console.log(v)}
-          onTextChange={(v) =>
-            setNewTodo({
-              ...newTodo,
-              text: v,
-            })
-          }
-          onSelectAction={(v) => console.log(v)}
           onSave={() => console.log('save...')}
           mode="edit"
           isNew

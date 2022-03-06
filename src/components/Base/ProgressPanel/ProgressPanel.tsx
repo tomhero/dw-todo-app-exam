@@ -29,7 +29,7 @@ const ProgressPanel = ({
     <section id={id} className={`dw-progress-panel ${className ? className : ''}`}>
       <h1 className="dw-progress-panel__title dw-text-h1">Progress</h1>
       <ProgressBar percentage={safePercentage} />
-      <p className="dw-progress-panel__description dw-text-p">12 completed</p>
+      <p className="dw-progress-panel__description dw-text-p">{completeCount} completed</p>
     </section>
   );
 };

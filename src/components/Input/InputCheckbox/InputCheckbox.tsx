@@ -3,7 +3,7 @@ import React from 'react';
 export type InputCheckboxProps = {
   id?: string;
   className?: string;
-  onChange: (isCheck: boolean) => void;
+  onChange?: (isCheck: boolean) => void;
   defaultChecked?: boolean;
 };
 
@@ -17,7 +17,9 @@ const InputCheckbox = ({
     <div id="" className={`dw-checkbox ${className ? className : ''}`}>
       <input
         id={id}
-        onChange={(e) => onChange(e.target.checked)}
+        onChange={(e) => {
+          if (onChange) onChange(e.target.checked);
+        }}
         className="dw-checkbox__input-box"
         type="checkbox"
         defaultChecked={defaultChecked}

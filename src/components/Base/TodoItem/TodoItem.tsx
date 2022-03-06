@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { ITodoItem, TodoAction, TODO_STATUS } from '@models/todo';
 
@@ -11,9 +11,8 @@ export type TodoItemProps = {
   todoItem: ITodoItem;
   mode?: 'read' | 'edit';
   isNew?: boolean;
-  onCheckboxClick: (isDone: boolean) => void;
-  onTextChange: (textValue: string) => void;
-  onSelectAction: (actionName: TodoAction) => void;
+  onCheckboxClick?: (isDone: boolean) => void;
+  onSelectAction?: (actionName: TodoAction) => void;
   onSave?: () => void;
 };
 
@@ -36,10 +35,11 @@ const TodoItem = ({
   mode = 'read',
   isNew = false,
   onCheckboxClick,
-  onTextChange,
   onSelectAction,
   onSave,
 }: TodoItemProps) => {
+  const [todoText, setTodoText] = useState(todoItem.text);
+
   const inputTextClassNames = ['dw-todo-item__text'];
   if (mode === 'read') {
     inputTextClassNames.push('dw-todo-item__text--read');
@@ -64,7 +64,9 @@ const TodoItem = ({
           id={`${id}-action-button`}
           className="dw-todo-item__action-button"
           actions={todoActions}
-          onClickAction={(act) => onSelectAction(act as TodoAction)}
+          onClickAction={(act) => {
+            if (onSelectAction) onSelectAction(act as TodoAction);
+          }}
         />
       </>
     );
@@ -72,8 +74,7 @@ const TodoItem = ({
 
   const renderAddPreset = () => {
     return (
-      !isNew &&
-      todoItem.text !== '' && (
+      todoText !== '' && (
         <Button
           id={`${id}-save-button`}
           className="dw-todo-item__save-button"
@@ -95,8 +96,8 @@ const TodoItem = ({
       <InputText
         id={`${id}-text`}
         className={inputTextClassNames.join(' ')}
-        value={todoItem.text}
-        onChange={(ev) => onTextChange(ev.target.value)}
+        value={todoText}
+        onChange={(ev) => setTodoText(ev.target.value)}
         readOnly={mode === 'read'}
         placeholder={`${isNew ? 'Add' : 'Edit'} your todo...`}
       />

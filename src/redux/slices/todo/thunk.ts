@@ -1,6 +1,8 @@
-import { ITodoItem, TODO_STATUS } from '@models/todo';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+
+import { ITodoItem, TODO_STATUS } from '@models/todo';
 import {
+  ITodoEntity,
   requestCreateTodo,
   requestDeleteTodo,
   requestEditTodo,
@@ -29,7 +31,12 @@ export const fetchTodoList = createAsyncThunk('todos/list', async (_, thunkAPI) 
 
 export const createTodo = createAsyncThunk('todos/create', async (todo: ITodoItem, thunkAPI) => {
   try {
-    const rawResponseTodo = await requestCreateTodo(todo);
+    const mappedPayload: ITodoEntity = {
+      id: todo.id,
+      title: todo.text,
+      completed: todo.status === TODO_STATUS.DONE ? true : false,
+    };
+    const rawResponseTodo = await requestCreateTodo(mappedPayload);
 
     const responseTodo: ITodoItem = {
       id: rawResponseTodo.id,
@@ -45,7 +52,12 @@ export const createTodo = createAsyncThunk('todos/create', async (todo: ITodoIte
 
 export const updateTodo = createAsyncThunk('todos/edit', async (todo: ITodoItem, thunkAPI) => {
   try {
-    const rawResponseTodo = await requestEditTodo(todo);
+    const mappedPayload: ITodoEntity = {
+      id: todo.id,
+      title: todo.text,
+      completed: todo.status === TODO_STATUS.DONE ? true : false,
+    };
+    const rawResponseTodo = await requestEditTodo(mappedPayload);
 
     const responseTodo: ITodoItem = {
       id: todo.id,
