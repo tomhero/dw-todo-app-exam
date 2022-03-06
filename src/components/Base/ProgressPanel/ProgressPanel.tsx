@@ -16,8 +16,8 @@ const ProgressPanel = ({
   completeCount = 0,
 }: ProgressPanelProps) => {
   const getSafePercentage = () => {
+    if (completeCount <= 0 || totalCount <= 0) return 0;
     if (completeCount >= totalCount) return 100;
-    if (completeCount <= 0) return 0;
 
     const percentage = (completeCount * 100) / totalCount;
     return Math.round(percentage);

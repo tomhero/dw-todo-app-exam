@@ -60,6 +60,6 @@ const todoSlice = createSlice({
   },
 });
 
-export const { toggleLoading } = todoSlice.actions;
+export const todoAction = todoSlice.actions;
 
 export default todoSlice.reducer;

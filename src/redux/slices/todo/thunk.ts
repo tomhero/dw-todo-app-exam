@@ -7,7 +7,7 @@ import {
   requestGetTodoList,
 } from '@services/todo';
 
-export const fetchTodoList = createAsyncThunk('todos/list', async () => {
+export const fetchTodoList = createAsyncThunk('todos/list', async (_, thunkAPI) => {
   try {
     const rawResponseTodoList = await requestGetTodoList();
 
@@ -23,11 +23,11 @@ export const fetchTodoList = createAsyncThunk('todos/list', async () => {
     return responseTodo;
   } catch (_) {
     // NOTE : Default error value
-    return [];
+    return thunkAPI.rejectWithValue([]);
   }
 });
 
-export const createTodo = createAsyncThunk('todos/create', async (todo: ITodoItem) => {
+export const createTodo = createAsyncThunk('todos/create', async (todo: ITodoItem, thunkAPI) => {
   try {
     const rawResponseTodo = await requestCreateTodo(todo);
 
@@ -39,11 +39,11 @@ export const createTodo = createAsyncThunk('todos/create', async (todo: ITodoIte
 
     return responseTodo;
   } catch (_) {
-    return {} as ITodoItem;
+    return thunkAPI.rejectWithValue({});
   }
 });
 
-export const updateTodo = createAsyncThunk('todos/edit', async (todo: ITodoItem) => {
+export const updateTodo = createAsyncThunk('todos/edit', async (todo: ITodoItem, thunkAPI) => {
   try {
     const rawResponseTodo = await requestEditTodo(todo);
 
@@ -55,15 +55,15 @@ export const updateTodo = createAsyncThunk('todos/edit', async (todo: ITodoItem)
 
     return responseTodo;
   } catch (_) {
-    return {} as ITodoItem;
+    return thunkAPI.rejectWithValue({});
   }
 });
 
-export const deleteTodo = createAsyncThunk('todos/delete', async (todoId: string) => {
+export const deleteTodo = createAsyncThunk('todos/delete', async (todoId: string, thunkAPI) => {
   try {
     await requestDeleteTodo(todoId);
     return {} as Record<string, never>;
   } catch (_) {
-    return {} as Record<string, never>;
+    return thunkAPI.rejectWithValue({});
   }
 });
