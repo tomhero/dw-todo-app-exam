@@ -32,6 +32,10 @@ module.exports = {
       "@utils": path.resolve(__dirname, "../src/utils/"),
       "@redux/*": path.resolve(__dirname, "../src/redux/*"),
       "@redux": path.resolve(__dirname, "../src/redux/"),
+      "@hooks/*": path.resolve(__dirname, "../src/hooks/*"),
+      "@hooks": path.resolve(__dirname, "../src/hooks/"),
+      "@services/*": path.resolve(__dirname, "../src/services/*"),
+      "@services": path.resolve(__dirname, "../src/services/"),
       "@test/*": path.resolve(__dirname, "../src/test/*"),
       "@test": path.resolve(__dirname, "../src/test/"),
     };

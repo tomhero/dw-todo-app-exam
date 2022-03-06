@@ -54,6 +54,18 @@
       ],
       "@models": [
         "src/models"
+      ],
+      "@hooks/*": [
+        "src/hooks/*"
+      ],
+      "@hooks": [
+        "src/hooks"
+      ],
+      "@services/*": [
+        "src/services/*"
+      ],
+      "@services": [
+        "src/services"
       ]
     },
     "incremental": true
