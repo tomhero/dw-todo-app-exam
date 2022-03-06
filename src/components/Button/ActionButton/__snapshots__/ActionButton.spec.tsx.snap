@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component testing with testing-library should render action button 1`] = `
+<div>
+  <div
+    class="dw-action-button "
+    tabindex="-1"
+  >
+    <img
+      alt="action button dots"
+      class="dw-action-button__dots"
+      src="/icons/three-dots.svg"
+    />
+    <button
+      class="dw-action-button__button"
+    />
+    <ul
+      class="dw-action-button__context-menu dw-action-button__context-menu--hide"
+    >
+      <li
+        class="dw-action-button__context-menu__item "
+      >
+        Foo
+      </li>
+      <li
+        class="dw-action-button__context-menu__item "
+      >
+        Bar
+      </li>
+    </ul>
+  </div>
+</div>
+`;

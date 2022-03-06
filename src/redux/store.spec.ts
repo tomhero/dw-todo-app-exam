@@ -5,4 +5,9 @@ describe('Redux Store', () => {
     const currentState = store.getState();
     expect(currentState).toHaveProperty('counter');
   });
+
+  it('should create store with todo reducer', () => {
+    const currentState = store.getState();
+    expect(currentState).toHaveProperty('todo');
+  });
 });

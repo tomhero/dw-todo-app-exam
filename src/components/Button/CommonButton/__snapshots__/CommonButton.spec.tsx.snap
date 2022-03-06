@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component testing with testing-library should render any element as children properly 1`] = `
+<div>
+  <button
+    class="dw-button "
+  >
+    <div
+      data-testid="child-component"
+    >
+      <i>
+        any
+      </i>
+       component
+    </div>
+  </button>
+</div>
+`;
+
+exports[`Component testing with testing-library should render button tag with given text 1`] = `
+<div>
+  <button
+    class="dw-button "
+  >
+    this is button noting else.
+  </button>
+</div>
+`;
