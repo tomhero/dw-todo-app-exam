@@ -51,6 +51,7 @@ const Home: React.FC = () => {
   };
 
   const loadTodoList = async () => {
+    dispatch(todoAction.toggleLoading());
     const resultAction = await dispatch(fetchTodoList());
     if (fetchTodoList.fulfilled.match(resultAction)) {
       const todoListData = resultAction.payload;
@@ -59,9 +60,11 @@ const Home: React.FC = () => {
       // NOTE : Handle erros
       alert('Cannot load todo list.');
     }
+    dispatch(todoAction.toggleLoading());
   };
 
   const handleAddTodo = async (newTodo: ITodoItem) => {
+    dispatch(todoAction.toggleLoading());
     setCurrentEditTodoIndex(undefined);
     const resultAction = await dispatch(createTodo(newTodo));
     if (createTodo.fulfilled.match(resultAction)) {
@@ -71,9 +74,11 @@ const Home: React.FC = () => {
     } else {
       alert('Cannot add todo.');
     }
+    dispatch(todoAction.toggleLoading());
   };
 
   const handleEditTodo = async (editItem: ITodoItem) => {
+    dispatch(todoAction.toggleLoading());
     const resultAction = await dispatch(updateTodo(editItem));
     if (updateTodo.fulfilled.match(resultAction)) {
       const todoData = resultAction.payload;
@@ -82,9 +87,11 @@ const Home: React.FC = () => {
       alert('Cannot edit todo item.');
     }
     setCurrentEditTodoIndex(undefined);
+    dispatch(todoAction.toggleLoading());
   };
 
   const handleDeleteTodo = async (id: string) => {
+    dispatch(todoAction.toggleLoading());
     const resultAction = await dispatch(deleteTodo(id));
     if (deleteTodo.fulfilled.match(resultAction)) {
       console.info('[info] : Delete todo success');
@@ -92,6 +99,7 @@ const Home: React.FC = () => {
       alert('Cannot delete todo item.');
     }
     setCurrentEditTodoIndex(undefined);
+    dispatch(todoAction.toggleLoading());
   };
 
   const handleActionContextMenu = (action: string, index: number, id: string) => {

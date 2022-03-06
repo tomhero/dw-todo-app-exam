@@ -1,5 +1,7 @@
 import React, { useMemo } from 'react';
 
+import { useAppSelector } from '@hooks/redux';
+
 import { ProgressBar } from '@components/ProgressBar';
 
 export type ProgressPanelProps = {
@@ -15,6 +17,8 @@ const ProgressPanel = ({
   totalCount = 0,
   completeCount = 0,
 }: ProgressPanelProps) => {
+  const { isLoading } = useAppSelector((state) => state.todo);
+
   const getSafePercentage = () => {
     if (completeCount <= 0 || totalCount <= 0) return 0;
     if (completeCount >= totalCount) return 100;
@@ -29,7 +33,9 @@ const ProgressPanel = ({
     <section id={id} className={`dw-progress-panel ${className ? className : ''}`}>
       <h1 className="dw-progress-panel__title dw-text-h1">Progress</h1>
       <ProgressBar percentage={safePercentage} />
-      <p className="dw-progress-panel__description dw-text-p">{completeCount} completed</p>
+      <p className="dw-progress-panel__description dw-text-p">
+        {isLoading ? 'Loading...' : `${completeCount} completed`}
+      </p>
     </section>
   );
 };

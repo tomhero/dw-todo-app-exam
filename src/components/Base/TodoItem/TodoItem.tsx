@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { ITodoItem, TodoAction, TODO_STATUS } from '@models/todo';
+import { useAppSelector } from '@hooks/redux';
 
 import { ActionButton, ActionItem, Button } from '@components/Button';
 import { InputCheckbox, InputText } from '@components/Input';
@@ -39,6 +40,8 @@ const TodoItem = ({
   onSave,
 }: TodoItemProps) => {
   const [todoText, setTodoText] = useState('');
+
+  const { isLoading } = useAppSelector((state) => state.todo);
 
   const inputTextClassNames = ['dw-todo-item__text'];
   if (mode === 'read') {
@@ -102,15 +105,17 @@ const TodoItem = ({
       className={`dw-todo-item ${className ? className : ''}`}
       onSubmit={(e) => e.preventDefault()}
     >
-      <InputText
-        id={`${id}-text`}
-        className={inputTextClassNames.join(' ')}
-        value={todoText}
-        onChange={(ev) => setTodoText(ev.target.value)}
-        readOnly={mode === 'read'}
-        placeholder={`${isNew ? 'Add' : 'Edit'} your todo...`}
-      />
-      {mode === 'read' ? renderEditPreset() : renderAddPreset()}
+      <fieldset disabled={isLoading}>
+        <InputText
+          id={`${id}-text`}
+          className={inputTextClassNames.join(' ')}
+          value={todoText}
+          onChange={(ev) => setTodoText(ev.target.value)}
+          readOnly={mode === 'read'}
+          placeholder={`${isNew ? 'Add' : 'Edit'} your todo...`}
+        />
+        {mode === 'read' ? renderEditPreset() : renderAddPreset()}
+      </fieldset>
     </form>
   );
 };

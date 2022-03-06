@@ -1,5 +1,7 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
+import { Provider } from 'react-redux';
+import store from '@redux/store';
 import ProgressPanel, { ProgressPanelProps } from './ProgressPanel';
 
 export default {
@@ -14,7 +16,11 @@ export default {
   },
 } as Meta;
 
-const Template: Story<ProgressPanelProps> = (args) => <ProgressPanel {...args} />;
+const Template: Story<ProgressPanelProps> = (args) => (
+  <Provider store={store}>
+    <ProgressPanel {...args} />
+  </Provider>
+);
 
 export const Example = Template.bind({});
 Example.args = {

@@ -1,41 +1,45 @@
 .dw-todo-item {
-  display: flex;
   position: relative;
-  flex-wrap: nowrap;
-  flex-direction: row;
-  align-items: center;
-  width: 100%;
 
-  .dw-todo-item__checkbox {
-    display: inline-flex;
-    position: absolute;
-    left: 20px;
-  }
-
-  .dw-todo-item__text {
-    padding-left: 58px;
-    padding-right: 64px;
+  fieldset {
+    display: flex;
+    position: relative;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-items: center;
     width: 100%;
-    transition: padding 0.2s ease-out;
 
-    &.dw-todo-item__text--read.dw-todo-item__text--completed {
-      color: #A9A9A9;
-      text-decoration: line-through;
+    .dw-todo-item__checkbox {
+      display: inline-flex;
+      position: absolute;
+      left: 20px;
     }
 
-    &.dw-todo-item__text--edit {
-      padding-left: 20px !important;
-      padding-right: 77px !important;
+    .dw-todo-item__text {
+      padding-left: 58px;
+      padding-right: 64px;
+      width: 100%;
+      transition: padding 0.2s ease-out;
+
+      &.dw-todo-item__text--read.dw-todo-item__text--completed {
+        color: #A9A9A9;
+        text-decoration: line-through;
+      }
+
+      &.dw-todo-item__text--edit {
+        padding-left: 20px !important;
+        padding-right: 77px !important;
+      }
     }
-  }
 
-  .dw-todo-item__action-button {
-    position: absolute;
-    right: 20px;
-  }
+    .dw-todo-item__action-button {
+      position: absolute;
+      right: 20px;
+    }
 
-  .dw-todo-item__save-button {
-    position: absolute;
-    right: 6px;
+    .dw-todo-item__save-button {
+      position: absolute;
+      right: 6px;
+    }
   }
 }

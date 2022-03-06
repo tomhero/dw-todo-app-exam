@@ -1,7 +1,9 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import TodoItem, { TodoItemProps } from './TodoItem';
+import { Provider } from 'react-redux';
+import store from '@redux/store';
 import { TODO_STATUS } from '@models/todo';
+import TodoItem, { TodoItemProps } from './TodoItem';
 
 export default {
   title: 'Base/TodoItem',
@@ -15,7 +17,11 @@ export default {
   },
 } as Meta;
 
-const Template: Story<TodoItemProps> = (args) => <TodoItem {...args} />;
+const Template: Story<TodoItemProps> = (args) => (
+  <Provider store={store}>
+    <TodoItem {...args} />
+  </Provider>
+);
 
 export const Example = Template.bind({});
 Example.args = {
