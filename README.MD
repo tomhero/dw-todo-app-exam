@@ -1,7 +1,7 @@
 # Datawow Todo App
 
 ## Getting Started
-
+> This app mush use with todo api from --> https://github.com/datawowio/todos-json-server only.
 
 NOTE : I'm using `yarn` as a dependency manager so, feel free to use another as your wish.
 
