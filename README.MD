@@ -1,37 +1,54 @@
-# datawow-todo-app
-
-
-This project was generated with [superplate](https://github.com/pankod/superplate).
+# Datawow Todo App
 
 ## Getting Started
 
-superplate is a Next.js all-in-one project generator. Create your project with the tools you need without spending hours on setting them up.
 
-## Available Scripts
+NOTE : I'm using `yarn` as a dependency manager so, feel free to use another as your wish.
+
+### Install dependencies (Important)
+```bash
+# NOTE: Please Stay at root directory
+$ yarn
+```
 
 ### Running the development server.
 
 ```bash
-    yarn dev
+$ yarn dev
 ```
 
 ### Building for production.
 
 ```bash
-    yarn build
+$ yarn build
 ```
 
 ### Running the production server.
 
 ```bash
-    yarn start
+$ yarn start
 ```
 
-## Learn More
+## Screenshot
 
-To learn more about **superplate**, please check out the [Documentation](https://github.com/pankod/superplate).
+---
+### Mobile
+<img src="./document/app-screentshot-mobile.jpg" width="50%">
+---
 
 
+---
+### Tablet
+<img src="./document/app-screentshot-tablet.png" width="50%">
+---
+
+
+---
+### Desktop
+<img src="./document/app-screentshot-desktop.png" width="100%">
+---
+
+## Highlight Dependency ,Library, Framework
 ### **SASS/SCSS**
 
 Sass is a stylesheet language that’s compiled to CSS. It allows you to use variables, nested rules, mixins, functions, and more, all with a fully CSS-compatible syntax.
