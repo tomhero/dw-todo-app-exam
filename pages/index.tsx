@@ -60,10 +60,7 @@ const Home: React.FC = () => {
   };
 
   const handleActionContextMenu = (action: string, index: number) => {
-    if (action === 'edit') {
-      setCurrentEditTodoIndex(index);
-    }
-
+    if (action === 'edit') setCurrentEditTodoIndex(index);
     if (action === 'delete') {
       console.log('start delete...');
     }
@@ -106,6 +103,7 @@ const Home: React.FC = () => {
             onSelectAction={(act) => handleActionContextMenu(act, index)}
             onSave={() => handleEditTodo(item)}
             mode={index === currentEditTodoIndex ? 'edit' : 'read'}
+            isNew={false}
           />
         ))}
         <TodoItem

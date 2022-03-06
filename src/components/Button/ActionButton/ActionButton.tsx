@@ -22,7 +22,7 @@ const ActionButton = ({ id, className, actions, onClickAction }: ActionButtonPro
     setIsOpenMenu(false);
   };
 
-  const blurHandler = async (e: React.FocusEvent<HTMLInputElement>) => {
+  const blurHandler = async (e: React.FocusEvent<HTMLDivElement>) => {
     if (!e.currentTarget.contains(e.relatedTarget)) {
       // NOTE : When clicked outside parent and children components
       setIsOpenMenu(false);
@@ -30,7 +30,12 @@ const ActionButton = ({ id, className, actions, onClickAction }: ActionButtonPro
   };
 
   return (
-    <div id={id} className={`dw-action-button ${className ? className : ''}`} onBlur={blurHandler}>
+    <div
+      id={id}
+      className={`dw-action-button ${className ? className : ''}`}
+      onBlur={blurHandler}
+      tabIndex={-1}
+    >
       <img
         className="dw-action-button__dots"
         src="/icons/three-dots.svg"

@@ -72,7 +72,7 @@ const TodoItem = ({
 
   const renderAddPreset = () => {
     return (
-      isNew &&
+      !isNew &&
       todoItem.text !== '' && (
         <Button
           id={`${id}-save-button`}
