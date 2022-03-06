@@ -8,7 +8,7 @@ import { InputOptionItem, InputSelect } from '@components/Input';
 import { ProgressPanel } from '@components/Base/ProgressPanel';
 import { TodoItem } from '@components/Base/TodoItem';
 import { useAppDispatch, useAppSelector } from '@hooks/redux';
-import { fetchTodoList, todoAction } from '@redux/slices/todo';
+import { fetchTodoList, todoAction, updateTodo } from '@redux/slices/todo';
 
 const newTodoTemplate: ITodoItem = {
   id: uuidv4(),
@@ -34,6 +34,7 @@ const filterOptions: InputOptionItem[] = [
 const Home: React.FC = () => {
   const [filter, setFilter] = useState('all');
   const [newTodo, setNewTodo] = useState(newTodoTemplate);
+  const [currentEditTodoIndex, setCurrentEditTodoIndex] = useState<number>();
 
   const todoState = useAppSelector((state) => state.todo);
   const dispatch = useAppDispatch();
@@ -53,8 +54,28 @@ const Home: React.FC = () => {
       const todoListData = resultAction.payload;
       console.info('[info] : load todo list success', todoListData);
     } else {
-      // NOTE : Hanmdle erros
+      // NOTE : Handle erros
       alert('Cannot load todo list.');
+    }
+  };
+
+  const handleActionContextMenu = (action: string, index: number) => {
+    if (action === 'edit') {
+      setCurrentEditTodoIndex(index);
+    }
+
+    if (action === 'delete') {
+      console.log('start delete...');
+    }
+  };
+
+  const handleEditTodo = async (editItem: ITodoItem) => {
+    const resultAction = await dispatch(updateTodo(editItem));
+    if (fetchTodoList.fulfilled.match(resultAction)) {
+      const todoData = resultAction.payload;
+      console.info('[info] : edit todo success', todoData);
+    } else {
+      alert('Cannot edit todo item.');
     }
   };
 
@@ -70,11 +91,11 @@ const Home: React.FC = () => {
         completeCount={todoState.doneTodoCount}
       />
       <section className="dw-home__todo-list-head">
-        <h2>Tasks</h2>
+        <h2 className="dw-text-h2">Tasks</h2>
         <InputSelect options={filterOptions} selectedValue={filter} onSelect={setFilter} />
       </section>
       <section className="dw-home__todo-list">
-        {getFilteredTodo().map((item) => (
+        {getFilteredTodo().map((item, index) => (
           <TodoItem
             key={item.id}
             id={item.id + ''}
@@ -82,8 +103,9 @@ const Home: React.FC = () => {
             todoItem={item}
             onCheckboxClick={(v) => console.log(v)}
             onTextChange={(v) => console.log(v)}
-            onSelectAction={(v) => console.log(v)}
-            onSave={() => console.log('save...')}
+            onSelectAction={(act) => handleActionContextMenu(act, index)}
+            onSave={() => handleEditTodo(item)}
+            mode={index === currentEditTodoIndex ? 'edit' : 'read'}
           />
         ))}
         <TodoItem

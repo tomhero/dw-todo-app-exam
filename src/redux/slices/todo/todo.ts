@@ -52,7 +52,7 @@ const todoSlice = createSlice({
         }
       }
     });
-    builder.addCase(deleteTodo.fulfilled, (state, { meta, payload }) => {
+    builder.addCase(deleteTodo.fulfilled, (state, { meta }) => {
       const deletedTodoIndex = state.todoList.findIndex((todo) => todo.id === meta.arg);
       state.todoList = state.todoList.splice(deletedTodoIndex, 1);
       state.todoCount--;

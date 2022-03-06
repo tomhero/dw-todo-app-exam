@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import { sleep } from '@utils/time';
+
 export type InputOptionItem = {
   label: string;
   value: string;
@@ -21,6 +23,14 @@ const InputSelect = ({ id, className, options, onSelect, selectedValue }: InputS
     setIsOpenCaret(false);
   };
 
+  const blurHandler = async (e: React.FocusEvent<HTMLInputElement>) => {
+    if (!e.currentTarget.contains(e.relatedTarget)) {
+      // NOTE : When clicked outside parent and children components
+      await sleep(0.15);
+      setIsOpenCaret(false);
+    }
+  };
+
   return (
     <div id={id} className={`dw-select-input ${className}`}>
       <input
@@ -29,11 +39,7 @@ const InputSelect = ({ id, className, options, onSelect, selectedValue }: InputS
         placeholder={selectedValue}
         readOnly
         onClick={() => setIsOpenCaret(!isOpenCaret)}
-        onBlur={() => {
-          setTimeout(() => {
-            setIsOpenCaret(false);
-          }, 150);
-        }}
+        onBlur={blurHandler}
       />
       <img className="dw-select-input__icon" src="/icons/chev-down.svg" alt="chevron icon" />
       <div

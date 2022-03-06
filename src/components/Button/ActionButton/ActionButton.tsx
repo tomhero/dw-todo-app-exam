@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
+import { sleep } from 'src/utils/time';
 
 export type ActionItem = {
   label: string;
@@ -21,22 +22,21 @@ const ActionButton = ({ id, className, actions, onClickAction }: ActionButtonPro
     setIsOpenMenu(false);
   };
 
+  const blurHandler = async (e: React.FocusEvent<HTMLInputElement>) => {
+    if (!e.currentTarget.contains(e.relatedTarget)) {
+      // NOTE : When clicked outside parent and children components
+      setIsOpenMenu(false);
+    }
+  };
+
   return (
-    <div id={id} className={`dw-action-button ${className ? className : ''}`}>
+    <div id={id} className={`dw-action-button ${className ? className : ''}`} onBlur={blurHandler}>
       <img
         className="dw-action-button__dots"
         src="/icons/three-dots.svg"
         alt="action button dots"
       />
-      <button
-        onClick={() => setIsOpenMenu(!isOpenMenu)}
-        className="dw-action-button__button"
-        onBlur={() => {
-          setTimeout(() => {
-            setIsOpenMenu(false);
-          }, 150);
-        }}
-      />
+      <button onClick={() => setIsOpenMenu(!isOpenMenu)} className="dw-action-button__button" />
       <ul
         className={`dw-action-button__context-menu ${
           !isOpenMenu ? 'dw-action-button__context-menu--hide' : ''
